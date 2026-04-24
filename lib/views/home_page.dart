@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:fl_chart/fl_chart.dart'; // Import the chart library
+import 'package:fl_chart/fl_chart.dart';
 import '../controllers/product_controller.dart';
 import '../controllers/cart_controller.dart';
 import 'cart_page.dart';
@@ -21,6 +21,7 @@ class HomePage extends StatelessWidget {
         backgroundColor: Colors.teal,
         foregroundColor: Colors.white,
         actions: [
+          // Reactive Shopping Cart Icon with Badge
           Obx(() => Padding(
             padding: const EdgeInsets.only(right: 15.0),
             child: Badge(
@@ -43,7 +44,7 @@ class HomePage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // 1. THE SALES GRAPH (Bar Chart)
+              // Section 1: Sales Analytics Chart
               if (cartController.salesData.isNotEmpty) ...[
                 const Padding(
                   padding: EdgeInsets.all(15.0),
@@ -68,7 +69,6 @@ class HomePage extends StatelessWidget {
                           sideTitles: SideTitles(
                             showTitles: true,
                             getTitlesWidget: (double value, TitleMeta meta) {
-                              // We use numbers 1-4 for the X axis to keep it clean, as names are too long
                               return Text('Item ${value.toInt() + 1}', style: const TextStyle(fontSize: 10));
                             },
                           ),
@@ -93,20 +93,19 @@ class HomePage extends StatelessWidget {
                   ),
                 ),
               ] else ...[
-                // Shows if there are no sales yet
                 const Padding(
                   padding: EdgeInsets.all(20.0),
-                  child: Center(child: Text("No sales data yet. Buy something!", style: TextStyle(color: Colors.grey))),
+                  child: Center(child: Text("No sales data available yet.", style: TextStyle(color: Colors.grey))),
                 ),
               ],
 
-              // 2. HORIZONTAL LIST (Top Picks)
+              // Section 2: Horizontal Featured List
               const Padding(
                 padding: EdgeInsets.all(15.0),
                 child: Text("Top Picks", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
               ),
               SizedBox(
-                height: 140, // Height of the horizontal cards
+                height: 140,
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemCount: productController.productList.length > 3 ? 3 : productController.productList.length,
@@ -117,14 +116,14 @@ class HomePage extends StatelessWidget {
                 ),
               ),
 
-              // 3. VERTICAL LIST (All Items)
+              // Section 3: Vertical Catalog List
               const Padding(
                 padding: EdgeInsets.all(15.0),
                 child: Text("All Jewellery", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
               ),
               ListView.builder(
-                physics: const NeverScrollableScrollPhysics(), // Disables inner scrolling
-                shrinkWrap: true, // Allows it to exist inside the SingleChildScrollView
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
                 itemCount: productController.productList.length,
                 itemBuilder: (context, index) {
                   var product = productController.productList[index];
@@ -138,7 +137,7 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  // A helper widget to draw the cards cleanly for both lists
+  // Reusable component for displaying product information in cards
   Widget _buildProductCard(Product product, bool isHorizontal) {
     return GestureDetector(
       onTap: () => Get.to(() => DetailsPage(), arguments: product),
@@ -148,7 +147,8 @@ class HomePage extends StatelessWidget {
         child: Card(
           elevation: 3,
           child: ListTile(
-            leading: Image.network(product.image, width: 50, height: 50, fit: BoxFit.contain, errorBuilder: (c, e, s) => const Icon(Icons.image)),
+            leading: Image.network(product.image, width: 50, height: 50, fit: BoxFit.contain, 
+                errorBuilder: (c, e, s) => const Icon(Icons.image)),
             title: Text(product.title, maxLines: 1, overflow: TextOverflow.ellipsis),
             subtitle: Text('\$${product.price.toStringAsFixed(2)}', style: const TextStyle(fontWeight: FontWeight.bold)),
             trailing: IconButton(

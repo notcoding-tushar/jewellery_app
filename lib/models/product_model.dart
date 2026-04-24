@@ -1,4 +1,8 @@
-class Product {
+import 'dart:convert';
+
+// This is the function RemoteServices is looking for
+List<Product> productFromJson(String str) =>
+    List<Product>.from(json.decode(str).map((x) => Product.fromJson(x)));class Product {
   final int id;
   final String title;
   final double price;

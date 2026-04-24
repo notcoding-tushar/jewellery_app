@@ -5,11 +5,25 @@ import 'package:firebase_core/firebase_core.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  // Initialize Firebase for either Web or Mobile platforms
   try {
-    // This allows the app to open even if Firebase is struggling to connect
-    await Firebase.initializeApp().timeout(const Duration(seconds: 5));
+    if (GetPlatform.isWeb) {
+      await Firebase.initializeApp(
+        options: const FirebaseOptions(
+            apiKey: "AIzaSyCdvS6AaXn-J3aOsQHTp5EB7_E8iFKgVBI",
+            authDomain: "jwellery-app-b62fb.firebaseapp.com",
+            projectId: "jwellery-app-b62fb",
+            storageBucket: "jwellery-app-b62fb.firebasestorage.app",
+            messagingSenderId: "981741721937",
+            appId: "1:981741721937:web:064ece927f1f0404691b70"
+        ),
+      );
+    } else {
+      await Firebase.initializeApp();
+    }
   } catch (e) {
-    debugPrint("Firebase Initialization timed out: $e");
+    debugPrint("Firebase Initialization Error: $e");
   }
 
   runApp(const JewelleryApp());
@@ -27,8 +41,7 @@ class JewelleryApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.teal),
         useMaterial3: true,
       ),
-      // Change this to NavScreen!
-      home: const NavScreen(),
+      home: const NavScreen(), // Main navigation entry point
     );
   }
 }

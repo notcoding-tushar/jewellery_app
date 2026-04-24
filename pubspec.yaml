@@ -19,7 +19,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ^3.11.5
+  sdk: ^3.1.5
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -34,9 +34,10 @@ dependencies:
   http: ^1.1.0
   shared_preferences: ^2.2.2
   fl_chart: ^0.68.0
-  firebase_core: ^2.24.2     # Core Firebase system
-  firebase_auth: ^4.15.0     # Firebase Authentication
-  google_sign_in: ^6.1.6     # Google Login pop-up
+  firebase_core: ^3.8.0
+  firebase_auth: ^5.3.1
+  google_sign_in: ^6.2.2
+  razorpay_flutter: ^1.3.7
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

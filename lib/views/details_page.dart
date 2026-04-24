@@ -4,13 +4,9 @@ import '../models/product_model.dart';
 import '../controllers/cart_controller.dart';
 
 class DetailsPage extends StatelessWidget {
-  // Get.arguments catches the product data we will pass from the Home Page
+  // Catch the product data passed from the Home Page
   final Product product = Get.arguments;
-
-  // Find the existing cart controller so we don't create a duplicate
   final CartController cartController = Get.find<CartController>();
-
-  // Local state for the increment/decrement counter
   final RxInt quantity = 1.obs;
 
   DetailsPage({super.key});
@@ -25,7 +21,7 @@ class DetailsPage extends StatelessWidget {
       ),
       body: Column(
         children: [
-          // 1. The Image (Taking up roughly 30% of the screen)
+          // Product image section
           Container(
             height: MediaQuery.of(context).size.height * 0.3,
             width: double.infinity,
@@ -38,7 +34,7 @@ class DetailsPage extends StatelessWidget {
             ),
           ),
 
-          // 2. The Text Details (Expanded so it takes up the remaining middle space)
+          // Scrollable area for product title, price and description
           Expanded(
             child: SingleChildScrollView(
               padding: const EdgeInsets.all(16),
@@ -48,15 +44,16 @@ class DetailsPage extends StatelessWidget {
                   Text(product.title, style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
                   const SizedBox(height: 10),
 
-                  // Price and Rating Row
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('\$${product.price.toStringAsFixed(2)}', style: const TextStyle(fontSize: 24, color: Colors.teal, fontWeight: FontWeight.bold)),
+                      Text('\$${product.price.toStringAsFixed(2)}', 
+                          style: const TextStyle(fontSize: 24, color: Colors.teal, fontWeight: FontWeight.bold)),
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                         decoration: BoxDecoration(color: Colors.amber, borderRadius: BorderRadius.circular(20)),
-                        child: Text("⭐ ${product.rating['rate']} (${product.rating['count']} reviews)", style: const TextStyle(fontWeight: FontWeight.bold)),
+                        child: Text("⭐ ${product.rating['rate']} (${product.rating['count']} reviews)", 
+                            style: const TextStyle(fontWeight: FontWeight.bold)),
                       )
                     ],
                   ),
@@ -70,7 +67,7 @@ class DetailsPage extends StatelessWidget {
             ),
           ),
 
-          // 3. The Bottom Bar (Counter and Add to Cart)
+          // Bottom Bar containing the quantity selector and Add to Cart action
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
             decoration: const BoxDecoration(
@@ -80,7 +77,6 @@ class DetailsPage extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                // Increment / Decrement Counter
                 Container(
                   decoration: BoxDecoration(
                     border: Border.all(color: Colors.grey.shade300),
@@ -103,7 +99,6 @@ class DetailsPage extends StatelessWidget {
                   ),
                 ),
 
-                // Add to Cart Button
                 ElevatedButton.icon(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.teal,
@@ -114,9 +109,8 @@ class DetailsPage extends StatelessWidget {
                   icon: const Icon(Icons.shopping_cart),
                   label: const Text("Add to Cart", style: TextStyle(fontSize: 16)),
                   onPressed: () {
-                    // Send the product AND the chosen quantity to the cart
                     cartController.addToCart(product, quantity: quantity.value);
-                    Get.back(); // Automatically go back to the home page after adding
+                    Get.back(); 
                   },
                 )
               ],

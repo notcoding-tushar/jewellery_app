@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import '../controllers/cart_controller.dart';
 
 class CartPage extends StatelessWidget {
-  // Grab the controller we already made
   final CartController cartController = Get.find();
 
   CartPage({super.key});
@@ -16,7 +15,7 @@ class CartPage extends StatelessWidget {
         backgroundColor: Colors.teal,
         foregroundColor: Colors.white,
       ),
-      // Obx updates the screen if we add/remove items
+      // Automatically updates UI when cart items change
       body: Obx(() {
         if (cartController.cartItems.isEmpty) {
           return const Center(child: Text("Your cart is empty!"));
@@ -24,12 +23,11 @@ class CartPage extends StatelessWidget {
 
         return Column(
           children: [
-            // The list of items
+            // List of cart items with quantity and subtotal per item
             Expanded(
               child: ListView.builder(
                 itemCount: cartController.cartItems.length,
                 itemBuilder: (context, index) {
-                  // Get the product and quantity from our map
                   var product = cartController.cartItems.keys.toList()[index];
                   var quantity = cartController.cartItems[product]!;
 
@@ -42,7 +40,7 @@ class CartPage extends StatelessWidget {
               ),
             ),
 
-            // The Checkout Bottom Bar
+            // Checkout Panel with price breakdown
             Container(
               padding: const EdgeInsets.all(20),
               decoration: const BoxDecoration(
@@ -79,8 +77,7 @@ class CartPage extends StatelessWidget {
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(backgroundColor: Colors.teal, foregroundColor: Colors.white),
                       onPressed: () {
-                        cartController.checkout(); // Call our fake checkout function
-                        Get.back(); // Go back to the home page after checkout
+                        cartController.openCheckout(); // Launch Razorpay Payment Gateway
                       },
                       child: const Text("Proceed to Checkout"),
                     ),

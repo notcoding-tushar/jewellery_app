@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import '../controllers/auth_controller.dart';
 
 class ProfilePage extends StatelessWidget {
-  // Inject the Auth Controller
   final AuthController authController = Get.put(AuthController());
 
   ProfilePage({super.key});
@@ -18,7 +17,7 @@ class ProfilePage extends StatelessWidget {
       ),
       body: Center(
         child: Obx(() {
-          // IF LOGGED IN: Show user details and Logout button
+          // Conditional UI based on Authentication status
           if (authController.isLoggedIn.value) {
             return Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -45,10 +44,7 @@ class ProfilePage extends StatelessWidget {
                 )
               ],
             );
-          }
-
-          // IF NOT LOGGED IN: Show the Sign In button
-          else {
+          } else {
             return Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -64,7 +60,7 @@ class ProfilePage extends StatelessWidget {
                     foregroundColor: Colors.black,
                     elevation: 2,
                   ),
-                  icon: Image.network('https://img.icons8.com/color/48/000000/google-logo.png', height: 24), // Quick google icon
+                  icon: Image.network('https://img.icons8.com/color/48/000000/google-logo.png', height: 24),
                   label: const Text("Sign In with Google", style: TextStyle(fontSize: 16)),
                   onPressed: () => authController.signInWithGoogle(),
                 )
