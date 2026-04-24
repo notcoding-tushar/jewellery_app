@@ -5,7 +5,12 @@ import 'package:firebase_core/firebase_core.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  try {
+    // This allows the app to open even if Firebase is struggling to connect
+    await Firebase.initializeApp().timeout(const Duration(seconds: 5));
+  } catch (e) {
+    debugPrint("Firebase Initialization timed out: $e");
+  }
 
   runApp(const JewelleryApp());
 }

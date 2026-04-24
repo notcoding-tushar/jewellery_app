@@ -12,7 +12,20 @@
           "package_name": "com.example.jewellery_app"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "981741721937-vqti6f43ofif8qc4r2nluqnsqs431rd2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.jewellery_app",
+            "certificate_hash": "5588b3b35f29cc4a688ba77b6d37cdc782b46f52"
+          }
+        },
+        {
+          "client_id": "981741721937-8tqfrhe5uf5l6d3h48mq8k84qm5hs52b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDTCmk_VkZEp5n2eoNLrWR_vk43sRDeJSs"
@@ -20,7 +33,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "981741721937-8tqfrhe5uf5l6d3h48mq8k84qm5hs52b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }
